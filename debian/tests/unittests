@@ -1,0 +1,14 @@
+#!/bin/sh
+set -efu
+
+pythons="$(pyversions -rv) $(py3versions -rv)"
+
+cp -a tests $ADTTMP
+mkdir $ADTTMP/utils
+ln -s /usr/share/python-pycparser/fake_libc_include $ADTTMP/utils
+cd "$ADTTMP"
+
+for py in $pythons; do
+	echo "=== python$py ==="
+	python$py tests/all_tests.py 2>&1
+done

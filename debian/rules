@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+export PYBUILD_DESTDIR_python2=debian/python-pycparser
+export PYBUILD_DESTDIR_python3=debian/python3-pycparser
+export PYBUILD_TEST_ARGS={dir}/tests
+export PYBUILD_AFTER_TEST=rm -f {build_dir}/parser.out {build_dir}/lextab.py {build_dir}/yacctab.py
+
+%:
+	dh $@ --with python2,python3 --buildsystem pybuild
+
+override_dh_auto_build: clean-generated-code
+	cd pycparser && python _build_tables.py
+	dh_auto_build
+
+override_dh_auto_clean: clean-generated-code
+	dh_auto_clean
+
+override_dh_python2:
+	dh_python2
+	dh_python-ply $$(find $(PYBUILD_DESTDIR_python2) -name '*tab.py')
+
+override_dh_python3:
+	dh_python3
+	# I blame jwilk for this temporary hack: (waiting for #714099)
+	sed -e 's/python-/python3-/g' /usr/bin/dh_python-ply | \
+		perl - $$(find $(PYBUILD_DESTDIR_python3) -name '*tab.py')
+
+clean-generated-code:
+	cd pycparser && rm -f lextab.py yacctab.py c_ast.py
+
+get-packaged-orig-source:
+	uscan --noconf --rename --repack --download-current-version --destdir=.

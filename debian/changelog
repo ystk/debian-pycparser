@@ -1,0 +1,66 @@
+pycparser (2.10+dfsg-3) unstable; urgency=medium
+
+  * Suggest cpp, as there are functions that can use cpp, although they don't
+    by default.
+  * Depend on cpp for ADT unittests (Closes: #740159)
+  * Use uscan's Files-Excluded feature instead of manual repacking in
+    debian/rules.
+  * Use find to locate ply generated tables, instead of hardcoding
+    python-version-specific paths.
+  * Bump Standards-Version to 3.9.5, no changes needed.
+  * Bump copyright years.
+  * Add DEP-12 upstream metadata.
+
+ -- Stefano Rivera <stefanor@debian.org>  Fri, 20 Jun 2014 00:11:55 +0200
+
+pycparser (2.10+dfsg-2) unstable; urgency=medium
+
+  * Team upload.
+  * Fix paths since dh_python2 no longer installs to pyshared.
+
+ -- Tristan Seligmann <mithrandi@debian.org>  Tue, 17 Jun 2014 15:55:34 +0200
+
+pycparser (2.10+dfsg-1) unstable; urgency=low
+
+  * New upstream release.
+  * Port to pybuild.
+  * Patch: relative-tests. Find the test resources relative to __file__.
+  * Updated homepage (moved to github).
+
+ -- Stefano Rivera <stefanor@debian.org>  Fri, 09 Aug 2013 15:53:58 +0200
+
+pycparser (2.09.1+dfsg-2) unstable; urgency=low
+
+  [ Jakub Wilk ]
+  * Run tests only if DEB_BUILD_OPTIONS=nocheck is not set.
+
+  [ Stefano Rivera ]
+  * Ensure auto-generated files are rebuilt, by deleting before build.
+  * Use dh_python-ply to generate dependencies against python{3,}-ply.
+
+ -- Stefano Rivera <stefanor@debian.org>  Wed, 26 Jun 2013 00:38:51 +0200
+
+pycparser (2.09.1+dfsg-1) unstable; urgency=low
+
+  [ Stefano Rivera ]
+  * New upstream release.
+  * Drop patch abort-on-test-failure, superseded upstream.
+  * Upstream now bundles ply. Strip it.
+  * Updated homepage (moved to bitbucket).
+  * Bumped Standards-Version to 3.9.4.
+    - Bumped debhelper B-D to 8.1, for build-{arch,indep} support.
+  * Export PYTHONPATH in debian/rules to avoid running tests against an
+    installed pycparser.
+  * Add an autopkgtest to run the unit tests.
+  * Switch watchfile URL to https.
+
+  [ Jakub Wilk ]
+  * Add Vcs-* fields.
+
+ -- Stefano Rivera <stefanor@debian.org>  Sun, 26 May 2013 01:44:06 +0200
+
+pycparser (2.07+dfsg-1) unstable; urgency=low
+
+  * Initial release. (Closes: #581847)
+
+ -- Stefano Rivera <stefanor@debian.org>  Sun, 24 Jun 2012 19:20:01 +0200

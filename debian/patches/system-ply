@@ -1,0 +1,41 @@
+Description: Use Debian's ply instead of the bundled ply
+ We prefer to avoid bundled libraries in Debian, don't use the bundled ply.
+Author: Stefano Rivera <stefanor@debian.org>
+Last-Update: 2013-01-12
+Forwarded: not-needed
+
+--- a/pycparser/c_lexer.py
++++ b/pycparser/c_lexer.py
+@@ -9,8 +9,8 @@
+ import re
+ import sys
+ 
+-from .ply import lex
+-from .ply.lex import TOKEN
++from ply import lex
++from ply.lex import TOKEN
+ 
+ 
+ class CLexer(object):
+--- a/pycparser/c_parser.py
++++ b/pycparser/c_parser.py
+@@ -8,7 +8,7 @@
+ #------------------------------------------------------------------------------
+ import re
+ 
+-from .ply import yacc
++from ply import yacc
+ 
+ from . import c_ast
+ from .c_lexer import CLexer
+--- a/setup.py
++++ b/setup.py
+@@ -22,7 +22,7 @@
+     classifiers = [
+         'Programming Language :: Python :: 2',
+         'Programming Language :: Python :: 3',],
+-    packages=['pycparser', 'pycparser.ply'],
++    packages=['pycparser'],
+     package_data={'pycparser': ['*.cfg']},
+ )
+ 
